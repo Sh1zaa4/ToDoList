@@ -1,0 +1,59 @@
+import java.util.Date;
+
+public class Task {
+    private int id;
+    private String title;
+    private Category category; // my tasks (default), work, school, home
+    private boolean completed;
+    private boolean important;
+    private Date deadline;
+
+    //constructors
+    //costruttore 'nuovo task' (per l'utente) --- costruttore 'piccolo', quindi chiama quello più grande (il totale)
+    public Task(String title){
+        this(title, 0, Category.MYTASKS, false, false, null);
+    }
+
+    //costruttore 'nuovo task' alternativo (per l'utente) --- constructor chaining
+    public Task(String title, Category category){
+        this(title, 0, category, false, false, null);
+    }
+
+    //costruttore 'totale' (per caricamento da db)
+    public Task(String title, int id, Category category, boolean completed, boolean important, Date deadline){
+        this.id = id;
+        this.title = title;
+        this.category = category;
+        //partono con valori nulli, saranno poi modificabili successivamente
+        this.completed = completed;
+        this.important = important;
+        this.deadline = deadline;
+    }
+
+
+    //getter
+    public String getTitle() { return title; }
+
+    public int getId() { return id; }
+
+    public Category getCategory() { return category; }
+
+    public boolean isCompleted() { return completed; }
+
+    public boolean isImportant() { return important; }
+
+    public Date getDeadline() { return deadline; }
+
+    //setter
+    public void setTitle(String title) { this.title = title; }
+
+    public void setId(int id) { this.id = id; }
+
+    public void setCategory(Category category) { this.category = category; }
+
+    public void setCompleted(boolean completed) { this.completed = completed; }
+
+    public void setImportant(boolean important) { this.important = important; }
+
+    public void setDeadline(Date deadline) { this.deadline = deadline; }
+}
