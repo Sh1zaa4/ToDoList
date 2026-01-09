@@ -1,22 +1,24 @@
 import java.util.Date;
 
 public class Task {
+    // TODO add description
     private int id;
     private String title;
     private Category category; // my tasks (default), work, school, home
     private boolean completed;
     private boolean important;
     private Date deadline;
+    private Date createdAt;
 
     //constructors
     //costruttore 'nuovo task' (per l'utente) --- costruttore 'piccolo', quindi chiama quello più grande (il totale)
     public Task(String title){
-        this(title, 0, Category.MYTASKS, false, false, null);
+        this(title, -1, Category.MYTASKS, false, false, null);
     }
 
     //costruttore 'nuovo task' alternativo (per l'utente) --- constructor chaining
     public Task(String title, Category category){
-        this(title, 0, category, false, false, null);
+        this(title, -1, category, false, false, null); // aggiungo createdAt
     }
 
     //costruttore 'totale' (per caricamento da db)
@@ -28,7 +30,9 @@ public class Task {
         this.completed = completed;
         this.important = important;
         this.deadline = deadline;
+        this.createdAt = new Date();
     }
+
 
 
     //getter
@@ -57,3 +61,4 @@ public class Task {
 
     public void setDeadline(Date deadline) { this.deadline = deadline; }
 }
+
