@@ -1,25 +1,36 @@
 import java.util.ArrayList;
 import java.util.List;
 
-//Qui posso creare l'arrayList e metodi che userò nel main nei vari use case.
 public class TaskManager {
-    static List<Task> tasks = new ArrayList<Task>();
+    private DatabaseManager db;
     private TaskManagerView view = new TaskManagerView();
 
+    //La connessione stabilita nel db è anche quella a cui accede il TaskManager
+    public TaskManager(DatabaseManager db){
+        this.db = db;
+    }
+    //metodo che si riferisce al db, ritorna feedback all'utente e controlla eccezioni
     public void addTask(Task task) {
-        task.setId(tasks.size() +1); //alla creazione di ogni task, un id gli viene assegnato
-        tasks.add(task);
-        view.addTaskView();
+        try {
+            db.addTask(task); //la task viene aggiunta al db
+            view.addTaskView();
+        } catch (Exception e) {
+            System.out.println("Failed to add task: " + e.getMessage());
+        }
     }
 
     public void removeTask(Task task) {
-        tasks.remove(task);
-        view.removeTaskView(task);
+        try {
+            db.removeTask(task); //TODO da implementare
+            view.removeTaskView(task);
+        } catch (Exception e) {
+            System.out.println("Failed to remove task: " + e.getMessage());
+        }
     }
 
     public void completeTask(Task task) {
         task.setCompleted(true);
-        tasks.remove(task);
+        db.removeTask(task);
         view.completeTaskView(task);
     }
 

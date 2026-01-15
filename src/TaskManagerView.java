@@ -10,12 +10,13 @@ public class TaskManagerView {
     }
 
     public void completeTaskView(Task task) {
-        System.out.println(task + " completed!");
-        if (!TaskManager.tasks.isEmpty()) {
-            System.out.println(TaskManager.tasks.size() + " tasks more to go!");
-        } else {
-            System.out.println("You have completed all your tasks! Good job!");
-        }
+        System.out.println(ConsoleColors.CYAN_BOLD_BRIGHT + task.getTitle() + " completed!" + ConsoleColors.RESET);
+        //TODO: aggiungo qui il metodo countTask() per dare feedback;
+//        if (!TaskManager.tasks.isEmpty()) {
+//            System.out.println(TaskManager.tasks.size() + " tasks more to go!");
+//        } else {
+//            System.out.println("You have completed all your tasks! Good job!");
+//        }
     }
 
     public void setImportantTaskView() {

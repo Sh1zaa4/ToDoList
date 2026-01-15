@@ -1,7 +1,7 @@
 import java.util.Date;
 
 public class Task {
-    // TODO add description
+    // TODO: add description
     private int id;
     private String title;
     private Category category; // my tasks (default), work, school, home
