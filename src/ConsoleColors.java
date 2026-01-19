@@ -1,7 +1,3 @@
-// Source - https://stackoverflow.com/a
-// Posted by shakram02
-// Retrieved 2026-01-15, License - CC BY-SA 3.0
-
 // Usage
 //System.out.println(ConsoleColors.RED + "RED COLORED" + ConsoleColors.RESET + " NORMAL");
 

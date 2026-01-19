@@ -1,15 +1,17 @@
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class TaskManager {
     private DatabaseManager db;
     private TaskManagerView view = new TaskManagerView();
+    private List<Task> tasks = new ArrayList<>();
 
     //La connessione stabilita nel db è anche quella a cui accede il TaskManager
     public TaskManager(DatabaseManager db){
         this.db = db;
     }
-    //metodo che si riferisce al db, ritorna feedback all'utente e controlla eccezioni
+
     public void addTask(Task task) {
         try {
             db.addTask(task); //la task viene aggiunta al db
@@ -28,10 +30,24 @@ public class TaskManager {
         }
     }
 
-    public void completeTask(Task task) {
-        task.setCompleted(true);
-        db.removeTask(task);
-        view.completeTaskView(task);
+    public void completeTask(Task task) throws SQLException {
+        if (!task.isCompleted()) {
+            task.setCompleted(true);
+            db.setCompletedTask(task);
+            //db.removeTask(task);
+            view.completeTaskView(task, db.countTasks());
+        } else {
+            System.out.println(ConsoleColors.WHITE_UNDERLINED + "Task is already completed!" + ConsoleColors.RESET);
+        }
+    }
+
+    public Task getIdTask(int id) {
+        if(id >= 0 && id < tasks.size()){
+            return tasks.get(id);
+        } else {
+            System.out.println("Insert a valid ID");
+            return null;
+        }
     }
 
     public void setImportantTask(Task task){
@@ -39,5 +55,18 @@ public class TaskManager {
         view.setImportantTaskView();
     }
 
+    public void loadTasks(){
+        try{
+            this.tasks = db.getAllTasks(); //salvo i dati recuperati dal db in una lista temporanea
+            view.loadTasksView();
+        } catch (SQLException e) {
+            System.out.println("Failed to load tasks " + e.getMessage());
+        }
+    }
+
+    public void printAllTasks(){
+        view.getAllTasksView(this.tasks);
+        System.out.println();
+    }
     //TODO metodi per categorizzare le task, capire dove salvarle, etc!
 }

@@ -5,9 +5,22 @@ public class Main {
 
         DatabaseManager db = new DatabaseManager();
         db.connect();
-        Task task = new Task("Homework");
+//        Task task = new Task("Shower");
+//        Task task2 = new Task("Homeworkk");
         TaskManager tm = new TaskManager(db);
-        tm.addTask(task);
-        tm.completeTask(task);
+//        tm.addTask(task);
+//        tm.completeTask(task);
+
+        tm.loadTasks();
+
+        Task taskToComplete = tm.getIdTask(3);
+        if (taskToComplete != null) {
+            tm.completeTask(taskToComplete);
+        } else {
+            System.out.println("task inesistente");
+        }
+
+        tm.printAllTasks();
+
     }
 }

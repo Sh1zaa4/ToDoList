@@ -33,8 +33,6 @@ public class Task {
         this.createdAt = new Date();
     }
 
-
-
     //getter
     public String getTitle() { return title; }
 
@@ -60,5 +58,10 @@ public class Task {
     public void setImportant(boolean important) { this.important = important; }
 
     public void setDeadline(Date deadline) { this.deadline = deadline; }
+
+    @Override
+    public String toString() {
+    return title + "  " + id + "  " + category;
+    }
 }
 
