@@ -7,14 +7,14 @@ public class DatabaseManager {
 
     //dati per connessione
     Connection connection = null;
-    String dbServer = "";
+    String dbServer = Env.get("DB_SERVER");
     int dbPort = 3306;
     String dbName = "ginevra_todo";
-    String user = "";
-    String password = "";
+    String user = Env.get("DB_USER");
+    String password = Env.get("DB_PASSWORD");
     String url = "jdbc:mariadb://" + dbServer + ":" + dbPort + "/" + dbName;
 
-    pubglic Connection connect() throws SQLException {
+    public Connection connect() throws SQLException {
         try {
             this.connection = DriverManager.getConnection(url, user, password);
             System.out.println(ConsoleColors.GREEN_BOLD_BRIGHT + "Successful connection to the database!" +
