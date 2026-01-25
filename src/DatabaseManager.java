@@ -7,14 +7,14 @@ public class DatabaseManager {
 
     //dati per connessione
     Connection connection = null;
-    String dbServer = "db.zimaserver.it";
+    String dbServer = "";
     int dbPort = 3306;
     String dbName = "ginevra_todo";
-    String user = "ginevra";
-    String password = "QwErTyUiOpAsDfGh";
+    String user = "";
+    String password = "";
     String url = "jdbc:mariadb://" + dbServer + ":" + dbPort + "/" + dbName;
 
-    public Connection connect() throws SQLException {
+    pubglic Connection connect() throws SQLException {
         try {
             this.connection = DriverManager.getConnection(url, user, password);
             System.out.println(ConsoleColors.GREEN_BOLD_BRIGHT + "Successful connection to the database!" +
