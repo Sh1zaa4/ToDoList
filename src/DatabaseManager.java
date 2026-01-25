@@ -7,11 +7,11 @@ public class DatabaseManager {
 
     //dati per connessione
     Connection connection = null;
-    String dbServer = "";
+    String dbServer = "db.zimaserver.it";
     int dbPort = 3306;
     String dbName = "ginevra_todo";
-    String user = "";
-    String password = "";
+    String user = "ginevra";
+    String password = "QwErTyUiOpAsDfGh";
     String url = "jdbc:mariadb://" + dbServer + ":" + dbPort + "/" + dbName;
 
     public Connection connect() throws SQLException {
@@ -45,7 +45,7 @@ public class DatabaseManager {
         }
     }
 
-    public void addTask(Task task) {
+    public void addTaskDB(Task task) {
 
         String addTaskSQL = "INSERT INTO tasks (title, category, isImportant, deadline," +
                 " isCompleted) VALUES (?, ?, ?, ?, ?)";
@@ -67,15 +67,15 @@ public class DatabaseManager {
         }
     }
 
-    public void removeTask(Task task) {
+    public void removeTaskDB(Task task) {
 
     }
 
-    public void setCompletedTask(Task task) {
-        String importantTasksSQL = "UPDATE tasks SET isCompleted = 1 WHERE id = ?";
+    public void setCompletedTaskDB(Task task) {
+        String completedTasksSQL = "UPDATE tasks SET isCompleted = 1 WHERE id = ?";
 
         try {
-            PreparedStatement preparedStatement = connection.prepareStatement(importantTasksSQL);
+            PreparedStatement preparedStatement = connection.prepareStatement(completedTasksSQL);
             preparedStatement.setInt(1, task.getId()); //id preso da riferimento a getIdTask
 
             preparedStatement.executeUpdate();

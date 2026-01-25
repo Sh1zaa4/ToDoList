@@ -5,7 +5,7 @@ import java.util.List;
 public class TaskManager {
     private DatabaseManager db;
     private TaskManagerView view = new TaskManagerView();
-    private List<Task> tasks = new ArrayList<>();
+    List<Task> tasks = new ArrayList<>();
 
     //La connessione stabilita nel db è anche quella a cui accede il TaskManager
     public TaskManager(DatabaseManager db){
@@ -14,7 +14,7 @@ public class TaskManager {
 
     public void addTask(Task task) {
         try {
-            db.addTask(task); //la task viene aggiunta al db
+            db.addTaskDB(task); //la task viene aggiunta al db
             view.addTaskView();
         } catch (Exception e) {
             System.out.println("Failed to add task: " + e.getMessage());
@@ -23,7 +23,7 @@ public class TaskManager {
 
     public void removeTask(Task task) {
         try {
-            db.removeTask(task); //TODO da implementare
+            db.removeTaskDB(task); //TODO da implementare
             view.removeTaskView(task);
         } catch (Exception e) {
             System.out.println("Failed to remove task: " + e.getMessage());
@@ -33,7 +33,7 @@ public class TaskManager {
     public void completeTask(Task task) throws SQLException {
         if (!task.isCompleted()) {
             task.setCompleted(true);
-            db.setCompletedTask(task);
+            db.setCompletedTaskDB(task);
             //db.removeTask(task);
             view.completeTaskView(task, db.countTasks());
         } else {
@@ -41,18 +41,18 @@ public class TaskManager {
         }
     }
 
-    public Task getIdTask(int id) {
+    public void setImportantTask(Task task){
+        task.setImportant(true);
+        view.setImportantTaskView();
+    }
+
+    public Task getTaskByIndex(int id) {
         if(id >= 0 && id < tasks.size()){
             return tasks.get(id);
         } else {
             System.out.println("Insert a valid ID");
             return null;
         }
-    }
-
-    public void setImportantTask(Task task){
-        task.setImportant(true);
-        view.setImportantTaskView();
     }
 
     public void loadTasks(){
@@ -68,5 +68,6 @@ public class TaskManager {
         view.getAllTasksView(this.tasks);
         System.out.println();
     }
+
     //TODO metodi per categorizzare le task, capire dove salvarle, etc!
 }

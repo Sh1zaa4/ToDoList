@@ -26,15 +26,16 @@ public class TaskManagerView {
 
     public void getAllTasksView(List<Task> tasks) {
     System.out.println("To-do list: ");
+    int userIndex = 1;
     if (tasks.isEmpty()) {
         System.out.println("No tasks in here!");
     } else {
-        String format = " %5s | %25s | %15s | %10s %n";
+        String format = " %5s | %25s | %15s | %10s %n"; //render
         System.out.printf(format, "ID", "TITLE", "CATEGORY", "STATUS");
         System.out.println("-------+---------------------------+-----------------+------------");
         for (Task t : tasks) {
             String status = t.isCompleted() ? "☑" : "☐";
-            System.out.printf(format, t.getId(), t.getTitle(), t.getCategory(), status );
+            System.out.printf(format, userIndex++, t.getTitle(), t.getCategory(), status );
             }
         }
     }
